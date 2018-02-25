@@ -19,28 +19,28 @@ class Stopwatch extends React.Component {
             miliseconds: 0
         };
 
-        this.setState({times});
+        this.setState({ times });
         this.stop();
     }
 
-        format() {
+    format() {
         return `${pad0(this.state.times.minutes)}:${pad0(this.state.times.seconds)}:${pad0(Math.floor(this.state.times.miliseconds))}`;
     }
 
     start() {
         if (!this.state.isRunning) {
-            this.setState({isRunning: true});
+            this.setState({ isRunning: true });
             this.watch = setInterval(() => this.step(), 10);
         }
     }
 
     step() {
-    if (!this.state.isRunning) return;
-        this.calculate() ;
-	}
+        if (!this.state.isRunning) return;
+        this.calculate();
+    }
 
-	calculate() {
-     const times = this.state.times;
+    calculate() {
+        const times = this.state.times;
         times.miliseconds += 1;
         if (times.miliseconds >= 100) {
             times.seconds += 1;
@@ -50,13 +50,26 @@ class Stopwatch extends React.Component {
             times.minutes += 1;
             times.seconds = 0;
         }
-        this.setState({times});
-	}
+        this.setState({ times });
+    }
 
-	stop() {
-     this.state.isRunning = false;
+    stop() {
+        this.state.isRunning = false;
         clearInterval(this.watch);
-	}
+    }
+
+    render() {
+        return (
+            <div>
+                <div>
+                    <a href="#" className="button" onClick={() => this.start()}>Start</a>
+                    <a href="#" className="button" onClick={() => this.stop()}>Stop</a>
+                    <a href="#" className="button" onClick={() => this.reset()}>Reset</a>
+                </div>  
+                <div className="stopwatch">{this.format()}</div>
+            </div>
+        );
+    }
 
 }
 
@@ -68,14 +81,5 @@ function pad0(value) {
     return result;
 }
 
-const stopwatch = new Stopwatch(
-    document.querySelector('.stopwatch'));
-
-let startButton = document.getElementById('start');
-startButton.addEventListener('click', () => stopwatch.start());
-
-let stopButton = document.getElementById('stop');
-stopButton.addEventListener('click', () => stopwatch.stop());
-
-let resetButton = document.getElementById('reset');
-resetButton.addEventListener('click', () => stopwatch.resetCount());
+const app = document.getElementById('app');
+ReactDOM.render( <Stopwatch/> , app);
