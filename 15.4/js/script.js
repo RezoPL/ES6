@@ -5,12 +5,12 @@ const greeting = `${hello} ${world}`;
 console.log = (greeting);
 
 //zadanie 2
-const multiply = (x, y = 1 => x * y);
+const multiply = (x, y = 1) => x * y;
 console.log = (multiply(2, 5));
 console.log = (multiply(6, 6));
 
 //zadanie 3
-const average = (...args) => args.reduce((a, b) => a + b)/args.length;
+const average = (...args) => args.reduce((a, b) => a + b) / args.length;
 console.log(average(1)); 
 console.log(average(1, 3)); 
 console.log(average(1, 3, 6, 6));
